@@ -2,6 +2,7 @@ import classes from "./CartItems.module.css"
 
 //popup to show items from the cart.
 const CartItems = (props) => {
+    console.log(props);
     const { title, quantity, total, price } = props.item;
 
     return (
