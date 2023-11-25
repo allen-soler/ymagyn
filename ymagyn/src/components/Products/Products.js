@@ -10,33 +10,33 @@ import "./Products.module.css"
 const DUMMY_PRODUCTS = [
     {
         id: 'p1',
-        price: 6,
+        price: 6.00,
         title: 'mac cheese',
         description: 'double beef, with cheese',
     },
     {
         id: 'p2',
-        price: 5,
+        price: 5.00,
         title: 'big mac',
         description: 'double bread, with beef',
     },
     {
         id: 'p3',
-        price: 5,
+        price: 5.00,
         title: 'big mac',
         description: 'double bread, with beef',
     },
     {
         id: 'p4',
-        price: 5,
+        price: 5.00,
         title: 'big mac',
         description: 'double bread, with beef',
     },
 ];
 
-const Products = (props) => {
+const Products = () => {
     return (
-        <Container>
+        <Container fluid style={{ paddingTop: '5rem' }}> 
             <h2>Choose your favorite meal</h2>
             <Row className="g-2">
                 {DUMMY_PRODUCTS.map((product) =>
