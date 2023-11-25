@@ -1,9 +1,0 @@
-.grid {
-  display: grid;
-  grid-template-columns: repeat(var(--bs-columns, 4), 1fr); /* Adjust as needed */
-  gap: var(--bs-gap, 1rem); /* Adjust as needed */
-}
-
-.g-col-2 {
-  /* If you have specific styles for this class, define them here */
-}
