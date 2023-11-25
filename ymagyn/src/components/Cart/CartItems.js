@@ -1,16 +1,31 @@
+import { useDispatch } from "react-redux";
 import classes from "./CartItems.module.css"
+import { cartActions } from "../../store/cart-slice";
 
 //popup to show items from the cart.
 const CartItems = (props) => {
-    console.log(props);
-    const { title, quantity, total, price } = props.item;
+    const dispatch = useDispatch();
 
+    const { id, title, quantity, total, price } = props.item;
+
+    const addItem = () => {
+        dispatch(cartActions.addItems({
+            id,
+            price,
+            title,
+            total,
+            quantity
+        }))
+    }
+    const removeItem = () => {
+        dispatch(cartActions.removeItems(id))
+    }
     return (
-        <li className={classes.item}>
+        <li className={classes.item}  id={id}>
             <header>
                 <h3>{title}</h3>
                 <div className={classes.price}>
-                    <span className={classes.itemprice}>{props.price}</span>
+                    <span className={classes.itemprice}>{total}</span>
                 </div>
             </header>
             <div className={classes.details}>
@@ -18,8 +33,8 @@ const CartItems = (props) => {
                     x<span>{quantity}</span>
                 </div>
                 <div className={classes.actions}>
-                    <button>-</button>
-                    <button>+</button>
+                    <button onClick={removeItem}>-</button>
+                    <button onClick={addItem}>+</button>
                 </div>
             </div>
         </li>

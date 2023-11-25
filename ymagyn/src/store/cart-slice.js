@@ -11,8 +11,9 @@ const cartSlice = createSlice({
         addItems(state, action) {
             //first we received the new item thanks to the payload, and we check in the existing item if the item exist with id, if item exist it increase by the desire quanity
             const newItem = action.payload
+
             const existingItem = state.items.find(item => item.id === newItem.id)
-            
+
             state.totalQuantity += 1
             if (existingItem) {
                 existingItem.quantity += 1
@@ -21,10 +22,10 @@ const cartSlice = createSlice({
             else {
                 //!!IMPORTANT!!\\
                 //this data is hardcore, neeed create a new firebase / or find api. 
-                console.log("this" + newItem)
                 const { id, price, title } = newItem;
+
                 state.items.push({
-                    itemId: id,
+                    id: id,
                     price: price,
                     quantity: 1,
                     totalPrice: price,
@@ -38,11 +39,15 @@ const cartSlice = createSlice({
             const existingItem = state.items.find(item => item.id === id)
             //if is 1 we remove it from the array if not we remove -1 and we rest the existingitem price as well
             state.totalQuantity -= 1
-            if (existingItem.quantity === 1) {
-                state.items = state.items.filter(item => item.id === id)
+            if (existingItem) {
+                if (existingItem.quantity === 1) {
+                    state.items = state.items.filter(item => item.id !== id)
+                } else {
+                    existingItem.quantity -= 1
+                    existingItem.totalPrice -= existingItem.price
+                }
             } else {
-                existingItem.quantity -= 1
-                existingItem.totalPrice = existingItem.price - existingItem.price
+                console.log("error with " + id)
             }
         }
     }

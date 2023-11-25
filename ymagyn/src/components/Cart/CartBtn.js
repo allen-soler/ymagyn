@@ -3,7 +3,7 @@ import { uiActions } from "../../store/ui-slice"
 import classes from "./CartBtn.module.css"
 
 //Cart btn to add items or not 
-const CartBtn = (props) => {
+const CartBtn = () => {
     const dispatch = useDispatch();
     const totalQuantity = useSelector(state => state.cart.totalQuantity)
 

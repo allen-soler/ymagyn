@@ -5,7 +5,7 @@ import CartItems from "./CartItems"
 import classes from "./Cart.module.css"
 
 
-const Cart = (props) => {
+const Cart = () => {
     const carItems = useSelector((state) => state.cart.items)
 
     return (
@@ -15,7 +15,8 @@ const Cart = (props) => {
                 {
                     carItems.map((item) =>
                         <CartItems
-                            item={{ title: item.name, quantity: item.quantity, total: item.total, price: item.price }}
+                            key={item.id}
+                            item={{ id: item.id, title: item.name, quantity: item.quantity, total: item.totalPrice, price: item.price }}
                         />
                     )}
             </ul>
