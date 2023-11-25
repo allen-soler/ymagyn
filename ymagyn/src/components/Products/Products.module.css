@@ -1,12 +1,9 @@
-.products h2 {
-    color: white;
-    margin: 2rem auto;
-    text-align: center;
-    text-transform: uppercase;
-  }
-  
-  .products ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--bs-columns, 4), 1fr); /* Adjust as needed */
+  gap: var(--bs-gap, 1rem); /* Adjust as needed */
+}
+
+.g-col-2 {
+  /* If you have specific styles for this class, define them here */
+}

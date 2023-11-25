@@ -1,5 +1,7 @@
 import { useDispatch } from "react-redux";
 import { cartActions } from "../../store/cart-slice";
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 const ProductItem = (props) => {
     const dispatch = useDispatch();
@@ -19,19 +21,19 @@ const ProductItem = (props) => {
     const placeholderImage = 'https://via.placeholder.com/150';
 
     return (
-        <div className="g-col-6">
-            <div className=" card" style={{ width: '18rem' }}>
-                <img src={placeholderImage} className="card-img-top" alt={'Product preview'} />
-                <div className="card-body">
-                    <h5 className="card-title">{title}</h5>
-                    <p className="card-text">{description}</p>
-                    <p className="card-text">Price: {price}</p>
-                </div>
-                <div className="card-body">
-                    <button className="btn btn-primary" onClick={addToCart}>Add to Cart</button>
-                </div>
-            </div>
-        </div>
+        <Card className="card" >
+            <Card.Img variant="top" src={placeholderImage} />
+            <Card.Body className="card-body">
+                <Card.Title className="card-title">{title}</Card.Title>
+                <Card.Text className="card-text">{description}</Card.Text>
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+                <ListGroup.Item>Price: {price}</ListGroup.Item>
+            </ListGroup>
+            <Card.Body>
+                <Card.Link className="btn btn-primary" onClick={addToCart}>Add to Cart</Card.Link>
+            </Card.Body>
+        </Card>
     );
 };
 

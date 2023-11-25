@@ -1,18 +1,45 @@
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 import CartBtn from "../Cart/CartBtn";
+import Stack from 'react-bootstrap/Stack';
 
-const Header = (props) => {
+function Header() {
+    const expand = 'xxl'
     return (
-        <header>
-            <nav className="navbar navbar-light bg-light">
-                <div className="container-fluid">
-                    <h2 className="navbar-brand">Redux Restaurant</h2>
-                    <div className="d-flex">
-                      <CartBtn />
+        <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
+            <Container fluid>
+                <Navbar.Brand href="#">Happy Burgers</Navbar.Brand>
+                <Stack direction="horizontal" gap={3}>
+                    <div>
+                        <CartBtn />
                     </div>
-                </div>
-            </nav>
-        </header>
-    )
+                    <div >
+                        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+                        <Navbar.Offcanvas
+                            id={`offcanvasNavbar-expand-${expand}`}
+                            aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
+                            placement="end"
+                        >
+                            {/* <Offcanvas.Header closeButton>
+                  <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+                    Offcanvas
+                  </Offcanvas.Title>
+                </Offcanvas.Header> */}
+                            <Offcanvas.Body>
+                                <Nav className="justify-content-end flex-grow-1 pe-3">
+                                    <Nav.Link href="#action1">Home</Nav.Link>
+                                    <Nav.Link href="#action2">About us</Nav.Link>
+                                </Nav>
+                            </Offcanvas.Body>
+                        </Navbar.Offcanvas>
+                    </div>
+                </Stack>
+            </Container>
+        </Navbar>
+    );
 }
 
 export default Header;
+//export default Header;

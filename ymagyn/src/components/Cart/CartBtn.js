@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { uiActions } from "../../store/ui-slice"
-import classes from "./CartBtn.module.css"
+import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
 
 //Cart btn to add items or not 
 const CartBtn = () => {
@@ -12,10 +13,9 @@ const CartBtn = () => {
     }
 
     return (
-        <button className={classes.btn} onClick={cartHandler}>
-            <span>My Cart</span>
-            <span className={classes.badges}>{totalQuantity}</span>
-        </button>
+        <Button variant="outline-primary" onClick={cartHandler}>
+                My Cart <Badge bg="primary">{totalQuantity}</Badge>
+        </Button>
     )
 }
 

@@ -1,12 +1,15 @@
-import { Fragment } from "react";
+import ThemeProvider from 'react-bootstrap/ThemeProvider'
 import Header from "./Header";
 
 const Layout = (props) => {
     return (
-        <Fragment>
+        <ThemeProvider
+            breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+            minBreakpoint="xxs"
+        >
             <Header />
             <main className="container	">{props.children}</main>
-        </Fragment>
+        </ThemeProvider>
     )
 }
 
