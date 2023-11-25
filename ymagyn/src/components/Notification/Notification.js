@@ -5,13 +5,13 @@ const Notification = (props) => {
     let classHandler = '';
 
     if (props.status === 'error') {
-        classHandler = classes.error
+        classHandler = classes.error;
     }
     if (props.status === 'success') {
-        classHandler = classes.success
+        classHandler = classes.success;
     }
 
-    const css = `${classes.notification} ${classHandler}`
+    const css = `${classes.notification} ${classHandler}`;
 
     return (
         <section className={css}>

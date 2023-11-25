@@ -5,7 +5,7 @@ import Cart from "./components/Cart/Cart"
 import Products from "./components/Products/Products";
 import Notification from "./components/Notification/Notification";
 import { Fragment, useEffect } from "react";
-import { sendData } from "./store/ActionFetch";
+import { fetchDataRequest, sendData } from "./store/ActionFetch";
 
 
 let isInitial = true
@@ -16,15 +16,22 @@ const App = () => {
   const cart = useSelector((state) => state.cart)
   const notification = useSelector(state => state.ui.notification)
 
+  //this one is to call the api and check if there are items or not in the cart
+  useEffect(() => {
+    dispatch(fetchDataRequest());
+  }, [dispatch]);
+
+
+  //this one is to send data if there is a change or not.
   useEffect(() => {
     if (isInitial) {
-      isInitial = false
+      isInitial = false;
       return;
     }
-    dispatch(sendData(cart))
+    if (cart.changed)
+      dispatch(sendData(cart));
+  }, [cart, dispatch]);
 
-  }, [cart, dispatch])
-  
   return (
     <Fragment>
       {notification && (

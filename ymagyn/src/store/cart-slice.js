@@ -5,26 +5,28 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         items: [],
-        totalQuantity: 0
+        totalQuantity: 0,
+        changed: false
     },
     reducers: {
         replaceCart(state, action) {
-            state.totalQuantity = action.payload.totalQuantity
-            state.items = action.payload.items
+            state.totalQuantity = action.payload.totalQuantity;
+            state.items = action.payload.items;
         },
         addItems(state, action) {
             //first we received the new item thanks to the payload, and we check in the existing item if the item exist with id, if item exist it increase by the desire quanity
-            const newItem = action.payload
+            const newItem = action.payload;
 
-            const existingItem = state.items.find(item => item.id === newItem.id)
+            const existingItem = state.items.find(item => item.id === newItem.id);
 
-            state.totalQuantity += 1
+            state.totalQuantity += 1;
+            state.changed = true;
             if (existingItem) {
-                existingItem.quantity += 1
-                existingItem.totalPrice += newItem.price
+                existingItem.quantity += 1;
+                existingItem.totalPrice += newItem.price;
             }
             else {
-                //!!IMPORTANT!!\\
+
                 //this data is hardcore, neeed create a new firebase / or find api. 
                 const { id, price, title } = newItem;
 
@@ -34,27 +36,28 @@ const cartSlice = createSlice({
                     quantity: 1,
                     totalPrice: price,
                     name: title
-                })
-            }
+                });
+            };
         },
         //here we received the id with the payload, and with existing item we find the items to be remove //item should always exist in this case
         removeItems(state, action) {
-            const id = action.payload
-            const existingItem = state.items.find(item => item.id === id)
+            const id = action.payload;
+            const existingItem = state.items.find(item => item.id === id);
             //if is 1 we remove it from the array if not we remove -1 and we rest the existingitem price as well
-            state.totalQuantity -= 1
+            state.totalQuantity -= 1;
+            state.changed = true
             if (existingItem) {
                 if (existingItem.quantity === 1) {
-                    state.items = state.items.filter(item => item.id !== id)
+                    state.items = state.items.filter(item => item.id !== id);
                 } else {
-                    existingItem.quantity -= 1
-                    existingItem.totalPrice -= existingItem.price
-                }
-            }
+                    existingItem.quantity -= 1;
+                    existingItem.totalPrice -= existingItem.price;
+                };
+            };
         }
     }
-})
+});
 
 
-export const cartActions = cartSlice.actions
-export default cartSlice
+export const cartActions = cartSlice.actions;
+export default cartSlice;
