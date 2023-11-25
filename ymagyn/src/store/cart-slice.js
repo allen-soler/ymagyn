@@ -8,6 +8,10 @@ const cartSlice = createSlice({
         totalQuantity: 0
     },
     reducers: {
+        replaceCart(state, action) {
+            state.totalQuantity = action.payload.totalQuantity
+            state.items = action.payload.items
+        },
         addItems(state, action) {
             //first we received the new item thanks to the payload, and we check in the existing item if the item exist with id, if item exist it increase by the desire quanity
             const newItem = action.payload
@@ -17,7 +21,7 @@ const cartSlice = createSlice({
             state.totalQuantity += 1
             if (existingItem) {
                 existingItem.quantity += 1
-                existingItem.totalPrice = existingItem.totalPrice + newItem.price
+                existingItem.totalPrice += newItem.price
             }
             else {
                 //!!IMPORTANT!!\\
@@ -46,12 +50,11 @@ const cartSlice = createSlice({
                     existingItem.quantity -= 1
                     existingItem.totalPrice -= existingItem.price
                 }
-            } else {
-                console.log("error with " + id)
             }
         }
     }
 })
+
 
 export const cartActions = cartSlice.actions
 export default cartSlice

@@ -14,7 +14,6 @@ const CartItems = (props) => {
             price,
             title,
             total,
-            quantity
         }))
     }
     const removeItem = () => {
