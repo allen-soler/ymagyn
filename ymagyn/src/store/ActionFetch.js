@@ -1,16 +1,16 @@
-//Creating a thunk for mananging fetching data
-
 import { cartActions } from "./cart-slice";
 import { uiActions } from "./ui-slice"
 
 const URL_DB = 'https://ymagyn-b7db1-default-rtdb.europe-west1.firebasedatabase.app/cart.json';
 
+//Creating a thunk for mananging fetching data
 //function to fetch data, first we check if the response work if not we send a notification.
 //Also we use replace cart reducer to update the basket if there are items.
 export const fetchDataRequest = () => {
     return async dispatch => {
         const fetchData = async () => {
             const response = await fetch(URL_DB);
+
             if (!response.ok)
                 throw new Error('Error fetching the data');
 
@@ -18,6 +18,7 @@ export const fetchDataRequest = () => {
 
             return data;
         };
+
         try {
             const data = await fetchData();
             dispatch(
@@ -25,8 +26,8 @@ export const fetchDataRequest = () => {
                     items: data.items || [],
                     totalQuantity: data.totalQuantity
                 })
-            )
-        } catch {
+            );
+        } catch (error) {
             dispatch(
                 uiActions.showNotification({
                     status: 'error',

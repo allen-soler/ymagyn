@@ -1,10 +1,11 @@
 
+import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import Layout from "./components/Layout/Layout";
 import Cart from "./components/Cart/Cart"
 import Products from "./components/Products/Products";
 import Notification from "./components/Notification/Notification";
-import { Fragment, useEffect } from "react";
 import { fetchDataRequest, sendData } from "./store/ActionFetch";
 
 
@@ -21,15 +22,15 @@ const App = () => {
     dispatch(fetchDataRequest());
   }, [dispatch]);
 
-
-  //this one is to send data if there is a change or not.
   useEffect(() => {
     if (isInitial) {
       isInitial = false;
       return;
     }
-    if (cart.changed)
+
+    if (cart.changed) {
       dispatch(sendData(cart));
+    }
   }, [cart, dispatch]);
 
   return (
