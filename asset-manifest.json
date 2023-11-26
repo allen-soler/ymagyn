@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/ymagyn/static/css/main.aefd7fa5.css",
-    "main.js": "/ymagyn/static/js/main.e6420c31.js",
+    "main.js": "/ymagyn/static/js/main.d43b6b00.js",
     "static/js/787.ad657b4b.chunk.js": "/ymagyn/static/js/787.ad657b4b.chunk.js",
     "index.html": "/ymagyn/index.html",
     "main.aefd7fa5.css.map": "/ymagyn/static/css/main.aefd7fa5.css.map",
-    "main.e6420c31.js.map": "/ymagyn/static/js/main.e6420c31.js.map",
+    "main.d43b6b00.js.map": "/ymagyn/static/js/main.d43b6b00.js.map",
     "787.ad657b4b.chunk.js.map": "/ymagyn/static/js/787.ad657b4b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.aefd7fa5.css",
-    "static/js/main.e6420c31.js"
+    "static/js/main.d43b6b00.js"
   ]
 }
