@@ -82,7 +82,7 @@ const App = () => {
       <Route path='/' element={<Index />} />
       <Route path='/Checkout' element={<Checkout />} />
       {!user.isAuth && <Route path='/login' element={<Login />} />}
-      <Route path='*' element={<Index />} />
+      <Route path='/*' element={<Index />} />
     </Routes>
   )
 }
