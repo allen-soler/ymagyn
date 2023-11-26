@@ -78,7 +78,7 @@ const App = () => {
   }, [cart, isInitial, dispatch, user.isAuth]);
 
   return (
-    <Routes basename="/ymagyn">
+    <Routes>
       <Route path='/' element={<Index />} />
       <Route path='/Checkout' element={<Checkout />} />
       {!user.isAuth && <Route path='/login' element={<Login />} />}
