@@ -1,11 +1,14 @@
-import { useSelector } from "react-redux";
+//import { useState } from "react";
+//import { useSelector } from "react-redux";
 import ThemeProvider from 'react-bootstrap/ThemeProvider';
 import Header from "./Header";
-import Notification from "../Notification/Notification";
+//import Notification from "../Notification/Notification";
 import Container from 'react-bootstrap/Container';
 
+
 const Layout = (props) => {
-    const notification = useSelector(state => state.ui.notification);
+    //const notification = useSelector(state => state.ui.notification);
+    // const [show, setShow] = useState(true);
 
     return (
         <ThemeProvider
@@ -14,13 +17,14 @@ const Layout = (props) => {
         >
             <Container>
                 <Header />
-                {notification && (
+                {/* {notification && (
                     <Notification
                         status={notification.status}
                         title={notification.title}
                         message={notification.message}
+                        show={show}
                     />
-                )}
+                )} */}
                 <Container fluid>
                     {props.children}
                 </Container>

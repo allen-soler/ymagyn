@@ -6,11 +6,12 @@ import Button from "react-bootstrap/esm/Button";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import Badge from 'react-bootstrap/Badge';
+import Stack from 'react-bootstrap/Stack'
 
 //popup to show items from the cart.
 const CartItems = (props) => {
     const dispatch = useDispatch();
-    const { id, title, quantity, total, price } = props.item;
+    const { id, title, quantity, total, price, img } = props.item;
 
     const addItem = () => {
         dispatch(cartActions.addItems({
@@ -18,6 +19,7 @@ const CartItems = (props) => {
             price,
             title,
             total,
+            img,
         }))
     }
 
@@ -26,11 +28,11 @@ const CartItems = (props) => {
     }
 
     return (
-        <Card style={{ width: '80%', margin: '3rem auto' }}>
+        <Card style={{  margin: '5rem auto' }}>
             <Row className="align-items-center">
                 <Col xs={3} md={3} sm={3}>
                     <Card.Img
-                        src="https://via.placeholder.com/75"
+                        src={img}
                         alt={title}
                         className="img-fluid d-block" // Make image responsive
                     />
@@ -38,8 +40,14 @@ const CartItems = (props) => {
                 <Col xs={8} md={8}>
                     <ListGroup variant="flush">
                         <ListGroup.Item>
-                            <h5>{title}</h5>
-                            <Badge bg="secondary">{quantity}</Badge>
+                            <Stack direction="horizontal" gap={3}>
+                                <div >
+                                    <h5> <Badge bg="secondary">{quantity}</Badge></h5>
+                                </div>
+                                <div >
+                                    <h5> {title}</h5>
+                                </div>
+                            </Stack>
                         </ListGroup.Item>
                         <ListGroup.Item>Price: CHF {price}</ListGroup.Item>
                         <ListGroup.Item>Total: CHF {total}</ListGroup.Item>

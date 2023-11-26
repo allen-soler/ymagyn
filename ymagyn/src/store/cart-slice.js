@@ -28,14 +28,15 @@ const cartSlice = createSlice({
             else {
 
                 //this data is hardcore, neeed create a new firebase / or find api. 
-                const { id, price, title } = newItem;
+                const { id, price, title, img } = newItem;
 
                 state.items.push({
                     id: id,
                     price: price,
                     quantity: 1,
                     totalPrice: price,
-                    name: title
+                    name: title,
+                    img: img
                 });
             };
         },

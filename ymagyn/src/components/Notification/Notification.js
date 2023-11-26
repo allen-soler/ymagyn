@@ -1,23 +1,28 @@
-import classes from "./Notification.module.css"
+import { useEffect, useState } from 'react';
+import Alert from 'react-bootstrap/Alert';
 
 const Notification = (props) => {
-    //this variable change depending the status that we received in our props
-    let classHandler = '';
+    const [showAlert, setShowAlert] = useState(props.show);
 
-    if (props.status === 'error') {
-        classHandler = classes.error;
-    }
-    if (props.status === 'success') {
-        classHandler = classes.success;
-    }
+    useEffect(() => {
+        // Set a timer to dissapear the doom
+        const timer = setTimeout(() => {
+            setShowAlert(false);
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, []);
 
-    const css = `${classes.notification} ${classHandler}`;
+    if (!showAlert) {
+        return null;
+    }
 
     return (
-        <section className={css}>
-            <h2>{props.title}</h2>
-            <p>{props.message}</p>
-        </section>
+        <Alert variant="success" onClose={() => setShowAlert(false)} dismissible style={{ marginTop: '5rem' }} >
+            <Alert.Heading>{props.title}</Alert.Heading>
+            <p>
+                {props.message}
+            </p>
+        </Alert>
     )
 }
 
