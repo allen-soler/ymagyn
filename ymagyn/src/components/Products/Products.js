@@ -8,8 +8,8 @@ const Products = (props) => {
     const products = props.products
     
     return (
-        <Container fluid style={{ paddingTop: '5rem' }}> 
-            <h2>Choose your favorite meal</h2>
+        <Container fluid > 
+            <h2 style={{ marginBottom: '5rem' }}>Choose your favorite meal</h2>
             <Row className="g-4">
                 {products.map((product) =>
                     <Col xs={12} sm={6} md={4} lg={3} key={product.id} >

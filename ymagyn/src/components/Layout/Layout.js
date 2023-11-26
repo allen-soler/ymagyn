@@ -25,7 +25,7 @@ const Layout = (props) => {
                         show={show}
                     />
                 )} */}
-                <Container fluid>
+                <Container fluid style={{marginTop: '10rem'}}>
                     {props.children}
                 </Container>
             </Container>

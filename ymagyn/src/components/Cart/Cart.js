@@ -7,8 +7,8 @@ const Cart = () => {
     const carItems = useSelector((state) => state.cart.items);
 
     return (
-        <Container fluid style={{ paddingTop: '5rem' }} > {/* Adjust the value to match your navbar's height */}
-            <h2 >Your Shopping Cart</h2>
+        <Container fluid  > {/* Adjust the value to match your navbar's height */}
+            <h2 style={{ marginBottom: '5rem' }}>Your Shopping Cart</h2>
             {
                 carItems.map((item) =>
                     <CartItems

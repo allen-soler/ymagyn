@@ -5,10 +5,12 @@ import { fetchDataRequest, fetchFoodRequest, sendData } from "./store/ActionFetc
 import { Route, Routes } from "react-router-dom";
 import Index from "./page/Index";
 import Checkout from "./page/Checkout";
+import Login from "./page/Login";
 
 const App = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user)
   const [isInitial, setIsInitial] = useState(true);
 
   // Fetch data on mount
@@ -32,6 +34,7 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Index />} />
       <Route path='/Checkout' element={<Checkout />} />
+      {!user.isAuth && <Route path='/login' element={<Login />} />}
       <Route path='*' element={<Index />} />
     </Routes>
   )

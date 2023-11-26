@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/cart-slice";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -6,11 +6,14 @@ import classes from "./ProductItem.module.css"
 
 const ProductItem = (props) => {
     const dispatch = useDispatch();
-    const { title, price, description, id, img, topping } = props;
+    const user = useSelector((state) => state.user)
+
+    const { title, price, description, id, img } = props;
 
     const addToCart = () => {
         dispatch(
             cartActions.addItems({
+                userId: user.id,
                 id,
                 title,
                 price,
