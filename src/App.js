@@ -79,7 +79,7 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path='/' element={<Index />} />
+      <Route path='/home' element={<Index />} />
       <Route path='/Checkout' element={<Checkout />} />
       {!user.isAuth && <Route path='/login' element={<Login />} />}
       <Route path='*' element={<Index />} />
