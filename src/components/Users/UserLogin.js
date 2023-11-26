@@ -49,6 +49,7 @@ const Login = () => {
                                 placeholder="Enter email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                autoComplete="email"  // Added autocomplete attribute
                             />
                         </Form.Group>
 
@@ -59,15 +60,15 @@ const Login = () => {
                                 placeholder="Password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                autoComplete="current-password"  // Added autocomplete attribute
                             />
                         </Form.Group>
-
                         {error && <Alert variant="danger">{error}</Alert>}
-
                         <Button variant="primary" type="submit">
                             Login
                         </Button>
                     </Form>
+
                 </Col>
             </Row>
         </Container>
