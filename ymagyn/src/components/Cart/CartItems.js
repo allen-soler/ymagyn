@@ -5,14 +5,11 @@ import { cartActions } from "../../store/cart-slice";
 import Button from "react-bootstrap/esm/Button";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
-import Stack from "react-bootstrap/esm/Stack";
 import Badge from 'react-bootstrap/Badge';
 
 //popup to show items from the cart.
 const CartItems = (props) => {
     const dispatch = useDispatch();
-    const placeholderImage = 'https://via.placeholder.com/75';
-
     const { id, title, quantity, total, price } = props.item;
 
     const addItem = () => {
@@ -29,43 +26,32 @@ const CartItems = (props) => {
     }
 
     return (
-        <Card style={{ width: '50%', margin: '5rem 0' }}>
-            <Row >
-                <Col md={4}>
-                    <Card.Img variant="top" src={placeholderImage}
-                        style={{ 'width': '100%' }}
+        <Card style={{ width: '80%', margin: '3rem auto' }}>
+            <Row className="align-items-center">
+                <Col xs={3} md={3} sm={3}>
+                    <Card.Img
+                        src="https://via.placeholder.com/75"
+                        alt={title}
+                        className="img-fluid d-block" // Make image responsive
                     />
                 </Col>
-                <Col md={8} >
-                    <Row  style={{ 'height': '100%' }} className="align-items-center">
-                        <Col  >
-                            <ListGroup className="list-group-flush">
-                                <ListGroup.Item>
-                                    <Card.Title><Badge bg="secondary">{quantity}</Badge> {title.toUpperCase()}</Card.Title>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
-                                    Price : CHF {price}
-                                </ListGroup.Item>
-                                <ListGroup.Item>Total : CHF {total}</ListGroup.Item>
-                            </ListGroup>
-                        </Col>
-                        <Col  className="d-sm-block"> 
-                            <Card.Body>
-                                <Stack direction="horizontal" gap={3} >
-                                    <div>
-                                        <Button onClick={removeItem}>-</Button>
-                                    </div>
-                                    <div>
-                                        <Button onClick={addItem}>+</Button>
-                                    </div>
-                                </Stack>
-                            </Card.Body>
-                        </Col>
-                    </Row>
+                <Col xs={8} md={8}>
+                    <ListGroup variant="flush">
+                        <ListGroup.Item>
+                            <h5>{title}</h5>
+                            <Badge bg="secondary">{quantity}</Badge>
+                        </ListGroup.Item>
+                        <ListGroup.Item>Price: CHF {price}</ListGroup.Item>
+                        <ListGroup.Item>Total: CHF {total}</ListGroup.Item>
+                    </ListGroup>
+                    <Card.Body>
+                        <Button variant="outline-primary" onClick={removeItem} className="me-2">-</Button>
+                        <Button variant="outline-primary" onClick={addItem}>+</Button>
+                    </Card.Body>
                 </Col>
             </Row>
         </Card>
-    )
+    );
 }
 
 export default CartItems;

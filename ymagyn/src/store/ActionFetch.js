@@ -1,15 +1,50 @@
 import { cartActions } from "./cart-slice";
+import { productActions } from "./product-slice";
 import { uiActions } from "./ui-slice"
 
-const URL_DB = 'https://ymagyn-b7db1-default-rtdb.europe-west1.firebasedatabase.app/cart.json';
-
+const URL_CART = 'https://ymagyn-b7db1-default-rtdb.europe-west1.firebasedatabase.app/cart.json';
+const URL_PRODUCTS = 'https://ymagyn-b7db1-default-rtdb.europe-west1.firebasedatabase.app/products.json';
 //Creating a thunk for mananging fetching data
 //function to fetch data, first we check if the response work if not we send a notification.
 //Also we use replace cart reducer to update the basket if there are items.
-export const fetchDataRequest = () => {
+export const fetchFoodRequest = () => {
+
     return async dispatch => {
         const fetchData = async () => {
-            const response = await fetch(URL_DB);
+            const response = await fetch(URL_PRODUCTS);
+
+            if (!response.ok)
+                throw new Error('Error fetching the data');
+
+            const data = await response.json();
+
+            return data;
+        };
+
+        try {
+            const data = await fetchData();
+            dispatch(
+                productActions.addItems(data || [])
+            );
+
+
+        } catch (error) {
+            dispatch(
+                uiActions.showNotification({
+                    status: 'error',
+                    title: 'Error!',
+                    message: 'Fetching cart data failed!',
+                })
+            );
+        };
+    };
+};
+
+export const fetchDataRequest = () => {
+
+    return async dispatch => {
+        const fetchData = async () => {
+            const response = await fetch(URL_CART);
 
             if (!response.ok)
                 throw new Error('Error fetching the data');
@@ -27,6 +62,7 @@ export const fetchDataRequest = () => {
                     totalQuantity: data.totalQuantity
                 })
             );
+
         } catch (error) {
             dispatch(
                 uiActions.showNotification({
@@ -42,7 +78,6 @@ export const fetchDataRequest = () => {
 //function to send card data // There is no authentication, need to be add, like users.
 export const sendData = (cart) => {
     return async (dispatch) => {
-        console.log(cart);
         dispatch(
             uiActions.showNotification({
                 status: 'pending',
@@ -51,7 +86,7 @@ export const sendData = (cart) => {
             })
         );
         const sendRequest = async () => {
-            const response = await fetch(URL_DB, {
+            const response = await fetch(URL_CART, {
                 method: 'PUT',
                 body: JSON.stringify({
                     items: cart.items,

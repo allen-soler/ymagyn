@@ -1,31 +1,32 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataRequest, sendData } from "./store/ActionFetch";
+import { fetchDataRequest, fetchFoodRequest, sendData } from "./store/ActionFetch";
 import { Route, Routes } from "react-router-dom";
 import Index from "./page/Index";
 import Checkout from "./page/Checkout";
-let isInitial = true
 
 const App = () => {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart)
+  const cart = useSelector((state) => state.cart);
+  const [isInitial, setIsInitial] = useState(true);
 
-  //this one is to call the api and check if there are items or not in the cart
+  // Fetch data on mount
   useEffect(() => {
     dispatch(fetchDataRequest());
+    dispatch(fetchFoodRequest());
   }, [dispatch]);
 
+  // Send cart data when cart changes
   useEffect(() => {
     if (isInitial) {
-      isInitial = false;
+      setIsInitial(false); // Set isInitial to false after first run
       return;
     }
-
     if (cart.changed) {
       dispatch(sendData(cart));
     }
-  }, [cart, dispatch]);
+  }, [cart, isInitial, dispatch]);
 
   return (
     <Routes>
