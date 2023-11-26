@@ -55,7 +55,7 @@ const CartItems = (props) => {
                             </Stack>
                         </ListGroup.Item>
                         <ListGroup.Item>Price: CHF {price}</ListGroup.Item>
-                        <ListGroup.Item>Total: CHF {total}</ListGroup.Item>
+                        <ListGroup.Item>Total: CHF {total.toFixed(2)}</ListGroup.Item>
                     </ListGroup>
                     <Card.Body>
                         <Button variant="outline-primary" onClick={removeItem} className="me-2">-</Button>

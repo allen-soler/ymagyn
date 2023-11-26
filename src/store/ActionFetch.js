@@ -4,6 +4,7 @@ import { uiActions } from "./ui-slice"
 
 const URL_CART = 'https://ymagyn-b7db1-default-rtdb.europe-west1.firebasedatabase.app/cart.json';
 const URL_PRODUCTS = 'https://ymagyn-b7db1-default-rtdb.europe-west1.firebasedatabase.app/products.json';
+
 //Creating a thunk for mananging fetching data
 //function to fetch data, first we check if the response work if not we send a notification.
 //Also we use replace cart reducer to update the basket if there are items.
