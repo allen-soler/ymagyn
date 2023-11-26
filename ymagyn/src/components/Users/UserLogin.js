@@ -5,7 +5,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userAction } from '../../store/user-slice';
-import { fetchDataRequest } from '../../store/ActionFetch';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -25,10 +24,7 @@ const Login = () => {
                     email: userCredential.user.email,
                 })
             )
-            dispatch(
-                fetchDataRequest(userCredential.user.uid));
             navigate("/");
-
         } catch (error) {
             //need to add notification logic, still need to fix UI
             setError("Error logging in: " + error.message);

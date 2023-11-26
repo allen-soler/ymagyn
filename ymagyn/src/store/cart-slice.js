@@ -23,7 +23,6 @@ const cartSlice = createSlice({
             if (newItem.userId) {
                 state.userId = newItem.userId;
             }
-
             state.totalQuantity += 1;
             state.changed = true;
             if (existingItem) {
@@ -44,28 +43,56 @@ const cartSlice = createSlice({
                     img: img
                 });
             };
+            // User not logged in we save in local storage
+            if (!state.userId) {
+                localStorage.setItem('anonymousCart', JSON.stringify({
+                    items: state.items,
+                    totalQuantity: state.totalQuantity
+                }));
+            }
         },
         //here we received the id with the payload, and with existing item we find the items to be remove //item should always exist in this case
         removeItems(state, action) {
-            const id = action.payload;
+            const { id, userId } = action.payload;
             const existingItem = state.items.find(item => item.id === id);
-            //if is 1 we remove it from the array if not we remove -1 and we rest the existingitem price as well
-            state.totalQuantity -= 1;
-            state.changed = true
-            if (existingItem) {
-                if (existingItem.quantity === 1) {
-                    state.items = state.items.filter(item => item.id !== id);
-                } else {
-                    existingItem.quantity -= 1;
-                    existingItem.totalPrice -= existingItem.price;
+
+            //we check if the userId matches before performing operation or if its null to localstorage
+            if (state.userId === userId || !state.userId) {
+                //if is 1 we remove it from the array if not we remove -1 and we rest the existingitem price as well
+                state.totalQuantity -= 1;
+                state.changed = true
+                if (existingItem) {
+                    if (existingItem.quantity === 1) {
+                        state.items = state.items.filter(item => item.id !== id);
+                    } else {
+                        existingItem.quantity -= 1;
+                        existingItem.totalPrice -= existingItem.price;
+                    };
                 };
-            };
+            }
         },
         removeUserItem(state, action) {
             state.userId = null;
             state.items = [];
             state.totalQuantity = 0;
             state.changed = true;
+        },
+        mergeCarts(state, action) {
+            const storeItems = action.payload
+            console.log(storeItems)
+            console.log(state.totalQuantity)
+            storeItems.items.forEach((storeItem) => {
+                const existingItem = state.items.find(item => item.id === storeItem.id)
+
+                if (existingItem) {
+                    existingItem.quantity += storeItem.quantity
+                    existingItem.totalPrice += storeItem.totalPrice
+                } else {
+                    state.items.push(storeItem)
+                }
+            });
+            state.totalQuantity += storeItems.totalQuantity
+            state.changed = true
         }
     }
 });

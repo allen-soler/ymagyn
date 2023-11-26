@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { cartActions } from "../../store/cart-slice";
@@ -11,10 +11,12 @@ import Stack from 'react-bootstrap/Stack'
 //popup to show items from the cart.
 const CartItems = (props) => {
     const dispatch = useDispatch();
+    const userId = useSelector(state => state.user.id)
     const { id, title, quantity, total, price, img } = props.item;
 
     const addItem = () => {
         dispatch(cartActions.addItems({
+            userId: userId,
             id,
             price,
             title,
@@ -24,11 +26,14 @@ const CartItems = (props) => {
     }
 
     const removeItem = () => {
-        dispatch(cartActions.removeItems(id))
+        dispatch(cartActions.removeItems({
+            id: id,
+            userId: userId
+        }))
     }
 
     return (
-        <Card style={{  margin: '5rem auto' }}>
+        <Card style={{ margin: '5rem auto' }}>
             <Row className="align-items-center">
                 <Col xs={3} md={3} sm={3}>
                     <Card.Img

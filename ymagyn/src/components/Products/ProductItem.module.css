@@ -1,5 +1,9 @@
   .card-text {
-    height: 7rem; 
+    height: 10rem;
     overflow: hidden;
   }
-  
+
+  .card-body {
+    height: 5rem;
+    overflow: hidden;
+  }

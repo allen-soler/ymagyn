@@ -40,40 +40,47 @@ export const fetchFoodRequest = () => {
     };
 };
 
-export const fetchDataRequest = (userId) => {
-    const URL_PATCH = `${URL_CART}?${userId}`
-    return async dispatch => {
-        const fetchData = async () => {
-            const response = await fetch(URL_PATCH);
+//this function is to fetch the cart data
+export const fetchCartData = (userId) => {
+    const URL_PATCH = `${URL_CART}?${userId}`;
+    return async (dispatch) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await fetch(URL_PATCH);
+                if (!response.ok) {
+                    throw new Error('Error fetching the data');
+                }
+                const data = await response.json();
 
-            if (!response.ok)
-                throw new Error('Error fetching the data');
+                // Check if data and data.items are not null
+                if (data && data.items) {
+                    // Update the Redux store with fetched cart items
+                    dispatch(cartActions.replaceCart({
+                        items: data.items,
+                        totalQuantity: data.totalQuantity || 0
+                    }));
+                } else {
+                    // if data or data.items are null
+                    dispatch(cartActions.replaceCart({
+                        items: [],
+                        totalQuantity: 0
+                    }));
+                }
 
-            const data = await response.json();
-
-            return data;
-        };
-
-        try {
-            const data = await fetchData();
-            dispatch(
-                cartActions.replaceCart({
-                    items: data.items || [],
-                    totalQuantity: data.totalQuantity
-                })
-            );
-
-        } catch (error) {
-            dispatch(
-                uiActions.showNotification({
+                resolve(data); // Resolve the promise with the fetched cart data
+            } catch (error) {
+                dispatch(uiActions.showNotification({
                     status: 'error',
                     title: 'Error!',
-                    message: 'Fetching cart data failed!',
-                })
-            );
-        };
+                    message: 'Fetching cart data failed!'
+                }));
+                reject(error);
+            }
+        });
     };
 };
+
+
 
 //function to send card data // There is no authentication, need to be add, like users.
 export const sendData = (cart) => {

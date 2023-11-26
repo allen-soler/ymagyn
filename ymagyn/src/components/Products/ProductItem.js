@@ -22,18 +22,20 @@ const ProductItem = (props) => {
             })
         )
     }
-    // Placeholder image URL
-    //const placeholderImage = 'https://via.placeholder.com/150';
 
     return (
         <Card className="card" >
             <Card.Img variant="top" src={img} alt={title} />
-            <Card.Body className="card-body">
-                <Card.Title className="card-title">{title}</Card.Title>
-                <Card.Text className={`card-text ${classes['card-text']}`}>{description}</Card.Text>
+            <Card.Body className={`card-body ${classes['card-body']}`}>
+                <Card.Title className="card-title">{title.toUpperCase()}</Card.Title>
             </Card.Body>
             <ListGroup className="list-group-flush">
-                <ListGroup.Item>Price: {price}</ListGroup.Item>
+                <ListGroup.Item className={`card-text ${classes['card-text']}`}>
+                    {description}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                    <span className="fw-bold">Price :</span> CHF {price}
+                </ListGroup.Item>
             </ListGroup>
             <Card.Body>
                 <Card.Link className="btn btn-primary" onClick={addToCart}>Add to Cart</Card.Link>
