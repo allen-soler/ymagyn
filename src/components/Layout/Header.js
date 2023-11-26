@@ -27,7 +27,7 @@ const Header = () => {
         }
         dispatch(userAction.setUserLogout());
         dispatch(cartActions.removeUserItem());
-        navigate("/home");
+        navigate("/");
     };
 
     //when we are on burger menu and we click home and we are already in home it close
@@ -67,7 +67,7 @@ const Header = () => {
                             <Offcanvas.Body>
                                 <Navbar.Collapse>
                                     <Nav className="justify-content-end flex-grow-1 pe-3">
-                                        <Nav.Link as={NavLink} onClick={navLinkHandler} to="/home" >Home</Nav.Link>
+                                        <Nav.Link as={NavLink} onClick={navLinkHandler} to="/" >Home</Nav.Link>
                                         {!user.isAuth && <Nav.Link as={NavLink} to="/login" onClick={navLinkHandler} >Login</Nav.Link>}
                                         {user.isAuth && <Nav.Link onClick={() => { UserLogOut(); navLinkHandler(); }} >Logout</Nav.Link>}
 

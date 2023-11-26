@@ -78,8 +78,8 @@ const App = () => {
   }, [cart, isInitial, dispatch, user.isAuth]);
 
   return (
-    <Routes>
-      <Route path='/home' element={<Index />} />
+    <Routes basename="/ymagyn">
+      <Route path='/' element={<Index />} />
       <Route path='/Checkout' element={<Checkout />} />
       {!user.isAuth && <Route path='/login' element={<Login />} />}
       <Route path='*' element={<Index />} />
