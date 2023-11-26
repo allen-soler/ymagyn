@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { getDatabase, ref, remove } from "firebase/database";
 import { getAuth, signOut } from "firebase/auth";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -19,13 +18,8 @@ const Header = () => {
     const navigate = useNavigate();
 
     const UserLogOut = async () => {
-        const userId = getAuth().currentUser.uid; // Get current user's ID
-        const db = getDatabase();
 
-        // Remove user-specific data (e.g., user's cart)
         try {
-            await remove(ref(db, 'carts/' + userId));
-
             // Now log the user out
             await signOut(getAuth());
         } catch (error) {

@@ -1,4 +1,3 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { cartActions } from "./cart-slice";
 import { productActions } from "./product-slice";
 import { uiActions } from "./ui-slice"
@@ -44,7 +43,7 @@ export const fetchFoodRequest = () => {
 
 //this function is to fetch the cart data
 export const fetchCartData = (userId) => {
-    const URL_PATCH = `${URL_CART}?${userId}`;
+    const URL_PATCH = `${URL_CART}/${userId}.json`;
     return async (dispatch) => {
         return new Promise(async (resolve, reject) => {
             try {
@@ -87,6 +86,8 @@ export const fetchCartData = (userId) => {
 
 //function to send card data // There is no authentication, need to be add, like users.
 export const sendData = (cart) => {
+    const URL_PATCH = `${URL_CART}/${cart.userId}.json`;
+
     return async (dispatch) => {
         dispatch(
             uiActions.showNotification({
@@ -95,53 +96,39 @@ export const sendData = (cart) => {
                 message: 'Sending cart data!'
             })
         );
-
-        const auth = getAuth();
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const idToken = await user.getIdToken();
-                console.log(idToken)
-                const sendRequest = async () => {
-                    const response = await fetch(URL_CART, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Bearer ' + idToken
-                        },
-                        body: JSON.stringify({
-                            userId: cart.userId,
-                            items: cart.items,
-                            totalQuantity: cart.totalQuantity
-                        }),
-                    });
-                    if (!response.ok) {
-                        throw new Error('Sending data failed');
-                    }
-                };
-
-                try {
-                    await sendRequest();
-                    dispatch(
-                        uiActions.showNotification({
-                            status: 'success',
-                            title: 'Success',
-                            message: 'Sending cart data successful.'
-                        })
-                    );
-                } catch (error) {
-                    console.log(error);
-                    dispatch(
-                        uiActions.showNotification({
-                            status: 'error',
-                            title: 'Error!',
-                            message: 'Sending cart data failed!'
-                        })
-                    );
-                }
-            } else {
-                // Handle the case where the user is not logged in
-                console.log("User is not authenticated.");
+        const sendRequest = async () => {
+            const response = await fetch(URL_PATCH, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    userId: cart.userId,
+                    items: cart.items,
+                    totalQuantity: cart.totalQuantity
+                }),
+            });
+            if (!response.ok) {
+                throw new Error('Sending data failedƒ');
             }
-        });
+        };
+
+        try {
+            await sendRequest();
+
+            dispatch(
+                uiActions.showNotification({
+                    status: 'success',
+                    title: 'Success',
+                    message: 'Sending cart data succesful.'
+                })
+            );
+        } catch (error) {
+            console.log(error);
+            dispatch(
+                uiActions.showNotification({
+                    status: 'error',
+                    title: 'Error!',
+                    message: 'Sending cart data failed!'
+                })
+            );
+        };
     };
 };
