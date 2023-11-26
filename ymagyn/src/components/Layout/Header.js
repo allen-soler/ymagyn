@@ -7,14 +7,17 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import CartBtn from "../Cart/CartBtn";
 import Stack from 'react-bootstrap/Stack';
 import { userAction } from "../../store/user-slice";
+import { cartActions } from "../../store/cart-slice";
 
 const Header = () => {
     const user = useSelector((state) => state.user)
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const UserLogOut = () => {
         dispatch(userAction.setUserLogout());
+        dispatch(cartActions.removeUserItem());
         navigate("/");
 
     };

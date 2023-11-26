@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataRequest, fetchFoodRequest, sendData } from "./store/ActionFetch";
+import { fetchFoodRequest, sendData } from "./store/ActionFetch";
 import { Route, Routes } from "react-router-dom";
 import Index from "./page/Index";
 import Checkout from "./page/Checkout";
@@ -15,7 +15,6 @@ const App = () => {
 
   // Fetch data on mount
   useEffect(() => {
-    dispatch(fetchDataRequest());
     dispatch(fetchFoodRequest());
   }, [dispatch]);
 

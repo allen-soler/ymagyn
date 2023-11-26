@@ -40,11 +40,11 @@ export const fetchFoodRequest = () => {
     };
 };
 
-export const fetchDataRequest = () => {
-
+export const fetchDataRequest = (userId) => {
+    const URL_PATCH = `${URL_CART}?${userId}`
     return async dispatch => {
         const fetchData = async () => {
-            const response = await fetch(URL_CART);
+            const response = await fetch(URL_PATCH);
 
             if (!response.ok)
                 throw new Error('Error fetching the data');
@@ -89,6 +89,7 @@ export const sendData = (cart) => {
             const response = await fetch(URL_CART, {
                 method: 'PUT',
                 body: JSON.stringify({
+                    userId: cart.userId,
                     items: cart.items,
                     totalQuantity: cart.totalQuantity
                 }),

@@ -23,6 +23,7 @@ const cartSlice = createSlice({
             if (newItem.userId) {
                 state.userId = newItem.userId;
             }
+
             state.totalQuantity += 1;
             state.changed = true;
             if (existingItem) {
@@ -59,6 +60,12 @@ const cartSlice = createSlice({
                     existingItem.totalPrice -= existingItem.price;
                 };
             };
+        },
+        removeUserItem(state, action) {
+            state.userId = null;
+            state.items = [];
+            state.totalQuantity = 0;
+            state.changed = true;
         }
     }
 });
