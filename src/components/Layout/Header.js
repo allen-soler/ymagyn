@@ -59,7 +59,7 @@ const Header = () => {
                             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
                             placement="end"
                         >
-                            <Offcanvas.Header closeButton>
+                            <Offcanvas.Header closeButton onClick={navLinkHandler}>
                                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
                                     Happy Burgers
                                 </Offcanvas.Title>
