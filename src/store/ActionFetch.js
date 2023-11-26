@@ -1,9 +1,10 @@
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { cartActions } from "./cart-slice";
 import { productActions } from "./product-slice";
 import { uiActions } from "./ui-slice"
 
-const URL_CART = 'https://ymagyn-b7db1-default-rtdb.europe-west1.firebasedatabase.app/cart.json';
-const URL_PRODUCTS = 'https://ymagyn-b7db1-default-rtdb.europe-west1.firebasedatabase.app/products.json';
+const URL_CART = process.env.REACT_APP_LINK_CART;
+const URL_PRODUCTS = process.env.REACT_APP_LINK_PRODUCTS;
 
 //Creating a thunk for mananging fetching data
 //function to fetch data, first we check if the response work if not we send a notification.
@@ -70,6 +71,7 @@ export const fetchCartData = (userId) => {
 
                 resolve(data); // Resolve the promise with the fetched cart data
             } catch (error) {
+                console.log(error);
                 dispatch(uiActions.showNotification({
                     status: 'error',
                     title: 'Error!',
@@ -93,38 +95,53 @@ export const sendData = (cart) => {
                 message: 'Sending cart data!'
             })
         );
-        const sendRequest = async () => {
-            const response = await fetch(URL_CART, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    userId: cart.userId,
-                    items: cart.items,
-                    totalQuantity: cart.totalQuantity
-                }),
-            });
-            if (!response.ok) {
-                throw new Error('Sending data failedƒ');
+
+        const auth = getAuth();
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const idToken = await user.getIdToken();
+                console.log(idToken)
+                const sendRequest = async () => {
+                    const response = await fetch(URL_CART, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + idToken
+                        },
+                        body: JSON.stringify({
+                            userId: cart.userId,
+                            items: cart.items,
+                            totalQuantity: cart.totalQuantity
+                        }),
+                    });
+                    if (!response.ok) {
+                        throw new Error('Sending data failed');
+                    }
+                };
+
+                try {
+                    await sendRequest();
+                    dispatch(
+                        uiActions.showNotification({
+                            status: 'success',
+                            title: 'Success',
+                            message: 'Sending cart data successful.'
+                        })
+                    );
+                } catch (error) {
+                    console.log(error);
+                    dispatch(
+                        uiActions.showNotification({
+                            status: 'error',
+                            title: 'Error!',
+                            message: 'Sending cart data failed!'
+                        })
+                    );
+                }
+            } else {
+                // Handle the case where the user is not logged in
+                console.log("User is not authenticated.");
             }
-        };
-
-        try {
-            await sendRequest();
-
-            dispatch(
-                uiActions.showNotification({
-                    status: 'success',
-                    title: 'Success',
-                    message: 'Sending cart data succesful.'
-                })
-            );
-        } catch (error) {
-            dispatch(
-                uiActions.showNotification({
-                    status: 'error',
-                    title: 'Error!',
-                    message: 'Sending cart data failed!'
-                })
-            );
-        };
+        });
     };
 };
