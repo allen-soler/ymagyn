@@ -76,6 +76,10 @@ The user reducer manages the user login data fetched from the Firebase API. The 
 }
 ```
 
+## Extra Features 
+- Local storage integration for persisting state management upon user reload.
+- Implementation of user login and Firebase session management, integrated with Redux for state persistence.
+
 ## Running the App Locally
 To run the app locally, first clone the repository:
 ```bash
