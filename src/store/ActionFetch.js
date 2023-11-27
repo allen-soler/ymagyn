@@ -132,3 +132,16 @@ export const sendData = (cart, userId) => {
         };
     };
 };
+
+export const updateLocalStorage = () => (dispatch, getState) => {
+    // Accessing the current state of the cart
+    const { cart } = getState();  
+
+    if (!cart.userId) {
+        // Update local storage only if there's no user ID (indicating an anonymous user)
+        localStorage.setItem('anonymousCart', JSON.stringify({
+            items: cart.items,
+            totalQuantity: cart.totalQuantity
+        }));
+    }
+};

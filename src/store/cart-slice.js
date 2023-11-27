@@ -14,26 +14,25 @@ const cartSlice = createSlice({
             state.totalQuantity = action.payload.totalQuantity;
             state.items = action.payload.items;
         },
-        addItems(state, action) {
+        addItem(state, action) {
             //first we received the new item thanks to the payload, and we check in the existing item if the item exist with id, if item exist it increase by the desire quanity
             const newItem = action.payload;
 
             const existingItem = state.items.find(item => item.id === newItem.id);
 
+            state.totalQuantity += 1;
+            state.changed = true;
             if (newItem.userId) {
                 state.userId = newItem.userId;
             }
-            state.totalQuantity += 1;
-            state.changed = true;
+
             if (existingItem) {
                 existingItem.quantity += 1;
                 existingItem.totalPrice += newItem.price;
             }
             else {
-
                 //this data is hardcore, neeed create a new firebase / or find api. 
                 const { id, price, title, img } = newItem;
-
                 state.items.push({
                     id: id,
                     price: price,
@@ -43,13 +42,6 @@ const cartSlice = createSlice({
                     img: img
                 });
             };
-            // User not logged in we save in local storage
-            if (!state.userId) {
-                localStorage.setItem('anonymousCart', JSON.stringify({
-                    items: state.items,
-                    totalQuantity: state.totalQuantity
-                }));
-            }
         },
         //here we received the id with the payload, and with existing item we find the items to be remove //item should always exist in this case
         removeItems(state, action) {
@@ -71,7 +63,7 @@ const cartSlice = createSlice({
                 };
             }
         },
-        removeUserItem(state, action) {
+        clearItems(state, action) {
             state.userId = null;
             state.items = [];
             state.totalQuantity = 0;

@@ -3,6 +3,7 @@ import { cartActions } from "../../store/cart-slice";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import classes from "./ProductItem.module.css"
+import { updateLocalStorage } from "../../store/ActionFetch";
 
 const ProductItem = (props) => {
     const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const ProductItem = (props) => {
 
     const addToCart = () => {
         dispatch(
-            cartActions.addItems({
+            cartActions.addItem({
                 userId: user.id,
                 id,
                 title,
@@ -21,6 +22,8 @@ const ProductItem = (props) => {
                 img
             })
         )
+        //if user is not online we saved it in local storage
+        dispatch(updateLocalStorage());
     }
 
     return (
@@ -38,7 +41,7 @@ const ProductItem = (props) => {
                 </ListGroup.Item>
             </ListGroup>
             <Card.Body>
-                <Card.Link className="btn btn-primary" onClick={addToCart}>Add to Cart</Card.Link>
+                <Card.Link className="btn btn-outline-primary" onClick={addToCart}>Add to Cart</Card.Link>
             </Card.Body>
         </Card>
     );

@@ -26,7 +26,7 @@ const Header = () => {
             console.error("Logout failed: ", error);
         }
         dispatch(userAction.setUserLogout());
-        dispatch(cartActions.removeUserItem());
+        dispatch(cartActions.clearItems());
         navigate("/");
     };
 

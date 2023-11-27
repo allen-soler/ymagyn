@@ -1,14 +1,28 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import CartItems from "./CartItems"
 import Container from "react-bootstrap/esm/Container"
+import { Button, Stack } from "react-bootstrap";
+import { cartActions } from "../../store/cart-slice";
 
 
 const Cart = () => {
+    const dispatch = useDispatch();
     const carItems = useSelector((state) => state.cart.items);
 
+    const clearItemsHandler = () => {
+        dispatch(cartActions.clearItems());
+        localStorage.removeItem('anonymousCart');
+    }
     return (
-        <Container fluid  > {/* Adjust the value to match your navbar's height */}
-            <h2 style={{ marginBottom: '5rem' }}>Your Shopping Cart</h2>
+        <Container fluid  >
+            <Stack direction="horizontal" gap={3} style={{ marginBottom: '5rem' }}>
+                <div className="p-2">
+                    <h2>Your Shopping Cart</h2>
+                </div>
+                <div className="p-2 ms-auto">
+                    <Button variant="outline-primary" onClick={clearItemsHandler}>Clear Items</Button>
+                </div>
+            </Stack>
             {
                 carItems.map((item) =>
                     <CartItems

@@ -7,6 +7,7 @@ import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import Badge from 'react-bootstrap/Badge';
 import Stack from 'react-bootstrap/Stack'
+import { updateLocalStorage } from "../../store/ActionFetch";
 
 //popup to show items from the cart.
 const CartItems = (props) => {
@@ -15,7 +16,7 @@ const CartItems = (props) => {
     const { id, title, quantity, total, price, img } = props.item;
 
     const addItem = () => {
-        dispatch(cartActions.addItems({
+        dispatch(cartActions.addItem({
             userId: userId,
             id,
             price,
@@ -23,6 +24,8 @@ const CartItems = (props) => {
             total,
             img,
         }))
+        //if user is not online we saved it in local storage
+        dispatch(updateLocalStorage());
     }
 
     const removeItem = () => {
