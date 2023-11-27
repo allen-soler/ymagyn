@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# React Application: Single-Page Application (SPA) for a Restaurant Menu
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Website:
 
-## Available Scripts
+[View the website here](https://ymagyn-allen-jorge-6450131ffc16.herokuapp.com/)
 
-In the project directory, you can run:
+### GitHub Repository and Commits:
 
-### `npm start`
+- [GitHub Repository](https://github.com/allen-soler/ymagyn)
+- [Commits History](https://github.com/allen-soler/ymagyn/commits/main?after=a72b4f343d6d94f8df205bd4d0660f2a56d339c0+34&branch=main&qualified_name=refs%2Fheads%2Fmain)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This project is a simulation of a burger restaurant's menu, deployed on Heroku.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The website is built using React and Redux for state management, with Redux Thunk as middleware for actions like data fetching. React Router is used for seamless navigation. The database is hosted on MediaFire, and the UI is built with [React Bootstrap](https://react-bootstrap.github.io/).
 
-### `npm test`
+The state management is handled by four reducers: `cart-slice`, `product-slice`, and `user-slice`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Cart Slice Reducer
+The `cart-slice` reducer manages the shopping cart state. The initial state includes `userId`, an array of `items`, `totalQuantity`, and a `changed` boolean to track if the cart has been modified. This reducer handles adding/removing products. Each add/remove action triggers a middleware function that sends the data to the server if the user is logged in, or stores the items in local storage otherwise. The reducer also automatically updates the total items and quantities.
 
-### `npm run build`
+### Cart Slice Object
+```json
+{
+  "initialState": {
+    "userId": null,
+    "items": [
+      {
+        "id": null,
+        "img": null,
+        "name": null,
+        "price": 0.0,
+        "quantity": 0,
+        "totalPrice": 0
+      }
+    ],
+    "totalQuantity": 0,
+    "changed": false
+  }
+}
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Product Slice
+The product-slice maintains the state of the product objects.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Product Slice Object
+```json
+{
+  "initialState": {
+    "items": [
+      {
+        "category": null,
+        "description": null,
+        "id": null,
+        "img": null,
+        "price": 0.0,
+        "rating": 0.0,
+        "title": null,
+        "toppings": []
+      }
+    ]
+  }
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## User Slice
+The user reducer manages the user login data fetched from the Firebase API. The user's ID is stored for cart management in the database.
 
-### `npm run eject`
+### User Slice Object
+```json
+{
+  "initialState": {
+    "id": null,
+    "email": null,
+    "isAuth": false
+  }
+}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Running the App Locally
+To run the app locally, first clone the repository:
+```bash
+git clone https://github.com/allen-soler/ymagyn.git <directory-name>
+cd <directory-name>
+npm start
+```
