@@ -5,7 +5,7 @@ import classes from "./ProductItem.module.css"
 
 
 const ProductItem = (props) => {
-    const { title, price, description, id, img } = props;
+    const { title, price, id, img } = props;
 
     return (
         <Card className="card" key={id}>
@@ -14,9 +14,6 @@ const ProductItem = (props) => {
                 <Card.Title className="card-title">{title.toUpperCase()}</Card.Title>
             </Card.Body>
             <ListGroup className="list-group-flush">
-                <ListGroup.Item className={`card-text ${classes['card-text']}`}>
-                    {description}
-                </ListGroup.Item>
                 <ListGroup.Item>
                     <span className="fw-bold">Price :</span> CHF {price}
                 </ListGroup.Item>

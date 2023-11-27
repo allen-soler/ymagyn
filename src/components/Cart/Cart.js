@@ -20,7 +20,7 @@ const Cart = () => {
                     <h2>Your Shopping Cart</h2>
                 </div>
                 <div className="p-2 ms-auto">
-                    <Button variant="outline-primary" onClick={clearItemsHandler}>Clear Items</Button>
+                    {carItems.length > 0 && <Button variant="outline-primary" onClick={clearItemsHandler}>Clear Items</Button>}
                 </div>
             </Stack>
             {

@@ -78,7 +78,19 @@ const Item = (props) => {
                             <ListGroup.Item>Price: CHF {price}</ListGroup.Item>
                         </ListGroup>
                         <Card.Body>
-                            <Button variant="outline-primary" onClick={addToCart}>Add to Cart</Button>
+                            <Stack direction="horizontal" gap={3} >
+                                <div>
+                                    <Button variant="outline-primary" onClick={addToCart}>Add to Cart</Button>
+                                </div>
+                                <div className="p-2 ">
+                                    <NavLink
+                                        to="/checkout"
+                                        className="btn btn-primary"
+                                    >
+                                        Checkout
+                                    </NavLink>
+                                </div>
+                            </Stack>
                         </Card.Body>
                     </Col>
                 </Row>
