@@ -11,7 +11,7 @@ const CartBtn = () => {
 
     return (
         <Button variant="outline-primary">
-            <Nav.Link as={NavLink} to="/Checkout">
+            <Nav.Link as={NavLink} to="/checkout">
                 My Cart <Badge bg="primary">{totalQuantity}</Badge>
             </Nav.Link>
         </Button>

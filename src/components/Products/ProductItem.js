@@ -1,33 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { cartActions } from "../../store/cart-slice";
+import { NavLink } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import classes from "./ProductItem.module.css"
-import { updateLocalStorage } from "../../store/ActionFetch";
+
 
 const ProductItem = (props) => {
-    const dispatch = useDispatch();
-    const user = useSelector((state) => state.user)
-
     const { title, price, description, id, img } = props;
 
-    const addToCart = () => {
-        dispatch(
-            cartActions.addItem({
-                userId: user.id,
-                id,
-                title,
-                price,
-                description,
-                img
-            })
-        )
-        //if user is not online we saved it in local storage
-        dispatch(updateLocalStorage());
-    }
-
     return (
-        <Card className="card" >
+        <Card className="card" key={id}>
             <Card.Img variant="top" src={img} alt={title} />
             <Card.Body className={`card-body ${classes['card-body']}`}>
                 <Card.Title className="card-title">{title.toUpperCase()}</Card.Title>
@@ -41,7 +22,9 @@ const ProductItem = (props) => {
                 </ListGroup.Item>
             </ListGroup>
             <Card.Body>
-                <Card.Link className="btn btn-outline-primary" onClick={addToCart}>Add to Cart</Card.Link>
+                {/* <Card.Link className="btn btn-outline-primary" as={NavLink} onClick={addToCart}>Add to Cart</Card.Link> */}
+                <Card.Link className="btn btn-outline-primary" as={NavLink}  to={`/item/${id}`}>See Burger</Card.Link>
+
             </Card.Body>
         </Card>
     );

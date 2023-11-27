@@ -11,7 +11,7 @@ import { auth } from "./firebase/firebase-config";
 import Index from "./page/Index";
 import Checkout from "./page/Checkout";
 import Login from "./page/Login";
-
+import ItemDetails from "./page/ItemDetail";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -74,7 +74,8 @@ const App = () => {
   return (
     <Routes>
       <Route path='/' element={<Index />} />
-      <Route path='/Checkout' element={<Checkout />} />
+      <Route path='/checkout' element={<Checkout />} />
+      <Route path='/item/:id' element={<ItemDetails />} />
       {!user.isAuth && <Route path='/login' element={<Login />} />}
       <Route path='/*' element={<Index />} />
     </Routes>
