@@ -85,8 +85,8 @@ export const fetchCartData = (userId) => {
 
 
 //function to send card data // There is no authentication, need to be add, like users.
-export const sendData = (cart) => {
-    const URL_PATCH = `${URL_CART}/${cart.userId}.json`;
+export const sendData = (cart, userId) => {
+    const URL_PATCH = `${URL_CART}/${userId}.json`;
 
     return async (dispatch) => {
         dispatch(
@@ -100,7 +100,7 @@ export const sendData = (cart) => {
             const response = await fetch(URL_PATCH, {
                 method: 'PUT',
                 body: JSON.stringify({
-                    userId: cart.userId,
+                    userId: userId,
                     items: cart.items,
                     totalQuantity: cart.totalQuantity
                 }),

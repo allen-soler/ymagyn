@@ -17,7 +17,6 @@ const Login = () => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             // User is logged in, userCredential.user contains the authenticated user's information
-            // Redirect or perform actions after successful login
             dispatch(
                 userAction.setUserLogin({
                     id: userCredential.user.uid,
