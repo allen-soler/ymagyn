@@ -37,6 +37,7 @@ The `cart-slice` reducer manages the shopping cart state. The initial state incl
     "changed": false
   }
 }
+```
 
 ## Product Slice
 The product-slice maintains the state of the product objects.
