@@ -13,7 +13,7 @@ This project is a simulation of a burger restaurant's menu, deployed on Heroku.
 
 The website is built using React and Redux for state management, with Redux Thunk as middleware for actions like data fetching. React Router is used for seamless navigation. The database is hosted on MediaFire, and the UI is built with [React Bootstrap](https://react-bootstrap.github.io/).
 
-The state management is handled by four reducers: `cart-slice`, `product-slice`, and `user-slice`.
+The state management is handled by three reducers: `cart-slice`, `product-slice`, and `user-slice`.
 
 ## Cart Slice Reducer
 The `cart-slice` reducer manages the shopping cart state. The initial state includes `userId`, an array of `items`, `totalQuantity`, and a `changed` boolean to track if the cart has been modified. This reducer handles adding/removing products. Each add/remove action triggers a middleware function that sends the data to the server if the user is logged in, or stores the items in local storage otherwise. The reducer also automatically updates the total items and quantities.
