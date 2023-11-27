@@ -40,7 +40,7 @@ const Item = (props) => {
     return (
         <Container fluid  >
             <Stack direction="horizontal" gap={3} style={{ marginBottom: '5rem' }}>
-                <div className="p-2">
+                <div className="p-2 d-none d-sm-block">
                     <h2>{title}</h2>
                 </div>
                 <div className="p-2 ms-auto">
