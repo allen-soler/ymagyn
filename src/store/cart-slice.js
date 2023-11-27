@@ -79,8 +79,6 @@ const cartSlice = createSlice({
         },
         mergeCarts(state, action) {
             const storeItems = action.payload
-            console.log(storeItems)
-            console.log(state.totalQuantity)
             storeItems.items.forEach((storeItem) => {
                 const existingItem = state.items.find(item => item.id === storeItem.id)
 
